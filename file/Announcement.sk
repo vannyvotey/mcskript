@@ -1,0 +1,22 @@
+command /bc [<text>]:
+	permission: verdant.core.announce
+	permission message: &bYou do not have access to this command!
+	trigger:
+		if arg-1 is set:
+			play sound "block.note_block.bell" at pitch 2 to player
+			send title "&x&F&F&0&0&0&0&lANNOUNCEMENT" to all players for 3 seconds
+			send subtitle colored arg-1 to all players for 5 seconds
+		else:
+			send "&bNo text provided"
+
+#Verdant Development-https://discord.gg/ZvrPW6cdr2
+#Tested versions: 1.13 and above (up to the latest).
+#For any issues, contact us on our Discord server: https://discord.gg/ZvrPW6cdr2
+#Alternatively, you can contact LONGEVITYMC or chromamogs on Discord.
+#If you want the upgraded version of this script, join the Discord and kindly create a ticket.
+
+
+
+
+
+

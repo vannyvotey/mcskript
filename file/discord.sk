@@ -1,0 +1,13 @@
+# Made by stozz (Discord : 6dnp)
+# DonutSMP's font generator link: https://mcutils.com/small-text-converter
+
+command discord:
+    trigger:
+        send "" to player
+        send "&x&3&7&B&F&F&9ᴊᴏɪɴ ᴛʜᴇ ᴅᴏɴᴜᴛѕᴍᴘ ᴅɪѕᴄᴏʀᴅ ᴄᴏᴍᴍᴜɴɪᴛʏ!" to player
+        send "&x&3&7&B&F&F&9● <link:https://discord.gg/donutsmp>§f§ndiscord.gg/donutsmp" to player
+        send "" to player
+
+        send action bar "&7The link has been sent in chat!" to player
+
+        play sound "minecraft:entity.experience_orb.pickup" with volume 1 and pitch 1 to player

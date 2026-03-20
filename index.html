@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANNYDEV // AETHER_CORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050508;
+            --surface: #0d0d16;
+            --primary: #a855f7; /* Hyper Purple */
+            --accent: #ec4899;  /* Pink highlight */
+            --text: #f4f4f5;
+            --text-dim: #94a3b8;
+            --glow: rgba(168, 85, 247, 0.4);
+            --border: rgba(168, 85, 247, 0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Abstract Background Grid */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sidebar: Glassmorphism Style */
+        .sidebar {
+            width: 400px;
+            padding: 60px;
+            background: rgba(13, 13, 22, 0.7);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .branding-zone {
+            position: relative;
+        }
+
+        .status-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: var(--primary);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-tag .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .version-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            -webkit-text-fill-color: var(--text-dim);
+        }
+
+        .description {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        /* Main Content Cards */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 100px;
+            gap: 20px;
+            z-index: 5;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; height: 100%; width: 4px;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-card:hover {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: var(--primary);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .card-info h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .card-info p {
+            margin: 5px 0 0 0;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .card-stat {
+            font-family: 'Fira Code', monospace;
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        .footer-meta {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        /* Entrance Animations */
+        .anim-fade {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="branding-zone">
+            <div class="status-tag anim-fade">
+                <div class="pulse-dot"></div>
+                NODE_STABLE :: PORT_8080
+            </div>
+            <h1 class="anim-fade" style="animation-delay: 0.1s;">VANNY<br>DEV<span class="version-badge">v4.0</span></h1>
+            <p class="description anim-fade" style="animation-delay: 0.2s;">
+                Crafting high-fidelity Minecraft ecosystems. Bridging the gap between raw Java performance and intuitive player experience.
+            </p>
+        </div>
+
+        <div class="footer-meta anim-fade" style="animation-delay: 0.6s;">
+            &copy; 2026 AETHER_DRIVE <br>
+            ENCRYPTED_ACCESS_ONLY
+        </div>
+    </aside>
+
+    <main class="content-area">
+        <a href="skripts.html" class="nav-card anim-fade" style="animation-delay: 0.3s;">
+            <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div class="card-info">
+                <h2>Skript Logic</h2>
+                <p>Reactive event-driven automation for modern servers.</p>
+            </div>
+            <div class="card-stat">
+                MODULAR<br>LOADED
+            </div>
+        </a>
+
+        <a href="plugins.html" class="nav-card anim-fade" style="animation-delay: 0.4s;">
+            <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="card-info">
+                <h2>Java Plugins</h2>
+                <p>Custom NMS implementation and low-level optimization.</p>
+            </div>
+            <div class="card-stat">
+                PAPER_1.20.x<br>JDK_21
+            </div>
+        </a>
+
+        <a href="configs.html" class="nav-card anim-fade" style="animation-delay: 0.5s;">
+            <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="card-info">
+                <h2>Architecture</h2>
+                <p>System hardening and cluster configuration nodes.</p>
+            </div>
+            <div class="card-stat">
+                VERIFIED<br>ROOT_CELL
+            </div>
+        </a>
+    </main>
+
+    <script>
+        console.log("Aether Core Online.");
+    </script>
+</body>
+</html>

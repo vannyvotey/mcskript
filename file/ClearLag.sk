@@ -1,0 +1,40 @@
+function clearlag():
+    broadcast "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>15s"
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>15s" to all players
+    play sound "BLOCK_NOTE_BLOCK_BELL" to all players
+    wait 10 seconds
+    
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>5s" to all players
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 1 to all players
+    wait 1 second
+    
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>4s" to all players
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 1 to all players
+    wait 1 second
+    
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>3s" to all players
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 1.2 to all players
+    wait 1 second
+    
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>2s" to all players
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 1.4 to all players
+    wait 1 second
+    
+    send action bar "<##FF0000>Warning &8• &fAll Dropped Items will be clear in <##FF0000>1s" to all players
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 1.6 to all players
+    wait 1 second
+    
+    broadcast "<##FF0000>%size of dropped items% Dropped Items &8• &fhas been cleaned."
+    send action bar "<##FF0000>%size of dropped items% Dropped Items &8• &fhas been cleaned." to all players
+    play sound "BLOCK_LAVA_EXTINGUISH" to all players
+    kill dropped items
+
+command clearlag:
+    aliases: cl
+    permission: clearlag
+    permission message: &4&l[ERROR] &7• &cYou do not have permission to execute this command!
+    trigger:
+        clearlag()
+
+every 60 minutes:
+    clearlag()

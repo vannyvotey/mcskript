@@ -1,0 +1,56 @@
+function numberFormat(n: number) :: text:
+    set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
+    loop split {_data} at "|":
+        set {_s::*} to split loop-value at ","
+        if {_n} >= 10 ^ ({_s::2} parsed as number):
+            return "%round({_n} / (10 ^ ({_s::2} parsed as number)) * 10) / 10%%{_s::1}%"
+    return "%{_n}%"
+
+function textToNumber(t: text) :: number:
+    set {_data::*} to "QT,18", "Q,15", "T,12", "B,9", "M,6", "k,3"
+    loop {_data::*}:
+        set {_s::*} to split loop-value at ","
+        if {_t} ends with "%{_s::1}%":
+            set {_parts::*} to split {_t} at {_s::1}
+            set {_n} to {_parts::1} parsed as number
+            return {_n} * (10 ^ ({_s::2} parsed as number))
+    return {_t} parsed as number
+
+command /pay <player> <text>:
+    trigger:
+        # Can't pay yourself
+        if arg-1 is player:
+            send action bar "&cYou can't pay yourself!" to player
+            play sound "ENTITY_VILLAGER_NO" to player
+            stop
+
+        set {_amount} to textToNumber(arg-2)
+
+        if player's balance >= {_amount}:
+            remove {_amount} from player's balance
+            add {_amount} to arg-1's balance
+            set {_format} to numberFormat({_amount})
+
+            # Action bars
+            send action bar "&7You paid <#008EFF>%arg-1% &a%{_format}%" to player
+            send action bar "<#008EFF>%player% &7paid you &a%{_format}%" to arg-1
+
+            # Sounds
+            play sound "ENTITY_PLAYER_LEVELUP" to player
+            play sound "ENTITY_PLAYER_LEVELUP" to arg-1
+        else:
+            send action bar "&cYou don't have enough money!" to player
+            play sound "ENTITY_VILLAGER_NO" to player
+
+command /balance [<offline player>]:
+    aliases: /bal
+    trigger:
+        if arg-1 is not set:
+            set {_bal} to player's balance
+            set {_format} to numberFormat({_bal})
+            send "&7You have &a%{_format}%"
+            send action bar "&7You have &a%{_format}%"
+        else:
+            set {_bal} to arg-1's balance
+            set {_format} to numberFormat({_bal})
+            send "<#008EFF>%arg-1% &7has &a%{_format}%"

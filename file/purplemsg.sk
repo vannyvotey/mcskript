@@ -1,0 +1,38 @@
+command /msg <player> <text>:
+    trigger:
+        if arg-1 is not online:
+            send "<#ff7591>That player is not online!" to player
+            stop
+
+        set {_receiver} to arg-1
+        set {_message} to arg-2
+
+        set {lastmsg.%player%} to {_receiver}
+        set {lastmsg.%{_receiver}%} to player
+
+        send "<#de39a4>✉ You &8» <#ff365e>%{_receiver}%:&f %{_message}%" to player
+        send "<#de39a4>✉ %player% &8» <#ff365e>You:&f %{_message}%" to {_receiver}
+
+        send action bar "<#ff7591>You sent a message to %{_receiver}%" to player
+        send action bar "<#ff7591>You got a message from %player%" to {_receiver}
+        play sound "block.note_block.pling" to {_receiver}
+
+
+command /reply <text>:
+    trigger:
+        if {lastmsg.%player%} is not set:
+            send "<#ff7591>You have nobody to reply to." to player
+            stop
+
+        set {_receiver} to {lastmsg.%player%}
+        set {_message} to arg-1
+
+        set {lastmsg.%player%} to {_receiver}
+        set {lastmsg.%{_receiver}%} to player
+
+        send "<#de39a4>✉ You &8» <#ff365e>%{_receiver}%:&f %{_message}%" to player
+        send "<#de39a4>✉ %player% &8» <#ff365e>You:&f %{_message}%" to {_receiver}
+
+        send action bar "<#ff7591>You sent a message to %{_receiver}%" to player
+        send action bar "<#ff7591>You got a message from %player%" to {_receiver}
+        play sound "block.note_block.pling" to {_receiver}
